@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+</head>
+<body>
+
+	<h1>Lets build a tight little example</h1>
+
+	<div id="example1"></div>
+	<div id="example2"></div>
+	<div id="example3"></div>
+
+	<div class="group">
+		<input type="text" id="example1_source">
+	</div>
+
+	<div class="group">
+		<input type="text" id="example2_source">
+	</div>
+
+	<div class="group">
+		<input type="text" id="example3_source">
+	</div>
+	
+</body>
+<script>
+	window.jdog_preset = {
+		limit : 100
+		, speedOfInterval : 10
+	}
+</script>
+<script src="jdog.js"></script>
+<script>
+	J.load("j.modules.dataBind.js")
+	J.addWait(
+	"Modules.dataBindExample"
+	, [ "Modules.dataBind", "DomContentLoaded" ]
+	, function dataBindExample_factory(ref) {
+
+		var e = {
+			example1 : document.getElementById("example1")
+			, example2 : document.getElementById("example2")
+			, example3 : document.getElementById("example3")
+			, example1_source : document.getElementById("example1_source")
+			, example2_source : document.getElementById("example2_source")
+			, example3_source : document.getElementById("example3_source")
+		}
+
+		var dog = {
+			e : e
+			, ref : ref
+		}
+
+		ref.dataBind
+			.bind("example1Data", e.example1)
+			.bind("example2Data", e.example2)
+			.bind("example3Data", e.example3)
+			.bind("example1Data", e.example1_source)
+			.bind("example2Data", e.example2_source)
+			.bind("example3Data", e.example3_source)
+
+		e.example1_source.onchange = function(event) {
+			J.add("example1Data"
+			, event.srcElement.value
+			, ref.dataBind.data)
+			ref.dataBind.update()
+		}
+
+		e.example2_source.onchange = function(event) {
+			J.add("example2Data"
+			, event.srcElement.value
+			, ref.dataBind.data)
+			ref.dataBind.update()
+		}
+
+		e.example3_source.onchange = function(event) {
+			J.add("example3Data"
+			, event.srcElement.value
+			, ref.dataBind.data)
+			ref.dataBind.update()
+		}
+
+		setTimeout(function() {
+
+			J.add("example3Data"
+			, "server side example"
+			, ref.dataBind.data)
+			ref.dataBind.update()
+
+		}, 2000)
+
+		return dog
+
+	})
+
+</script>
+</html>
