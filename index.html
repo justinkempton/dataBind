@@ -3,97 +3,78 @@
 <head>
 	<meta charset="UTF-8">
 	<title></title>
+	<style>
+
+		#grid {
+		}
+
+		#grid div {
+			width:1.5em;
+			height:1.5em;
+			text-align:center;
+			border:1px solid rgba(0,0,0,.02);
+			padding:.4em;
+			float:left;
+			margin:0 -1px -1px 0;
+			font-size:10px;
+		}
+
+		#grid:after {
+			content:"\A0";
+			display:block;
+			clear:both;
+		}
+
+	</style>
 </head>
 <body>
 
-	<h1>Lets build a tight little example</h1>
-
-	<div id="example1"></div>
-	<div id="example2"></div>
-	<div id="example3"></div>
+	<h4><span data-bind='limit'></span> individual data points with corresponding elements, changing every <span data-bind='speed'></span>ms... you be the judge</h4>
 
 	<div class="group">
-		<input type="text" id="example1_source">
+		<label>Limit</label>
+		<input type="text" data-bind="limit">
 	</div>
 
 	<div class="group">
-		<input type="text" id="example2_source">
+		<label>Speed</label>
+		<input type="text" data-bind="speed">
 	</div>
 
 	<div class="group">
-		<input type="text" id="example3_source">
+		<label>letters</label>
+		<input type="text" data-bind="letters" style="width:60%;">
+	</div>
+
+	<div id="grid"></div>
+
+	<div id="example1">&nbsp;</div>
+	<div id="example2">&nbsp;</div>
+	<div id="example3">&nbsp;</div>
+	<div id="example4" data-bind="moreComplicated.example.name">&nbsp;</div>
+	<div id="example5" data-template="Example5" data-bind="SampleData.People">&nbsp;</div>
+
+	<div class="group">
+		<input type="text" data-bind="example1Data" id="example1_source">
+	</div>
+
+	<div class="group">
+		<input type="text" data-bind="example2Data" id="example2_source">
+	</div>
+
+	<div class="group">
+		<input type="text" data-bind="example3Data" id="example3_source">
 	</div>
 	
 </body>
-<script>
-	window.jdog_preset = {
-		limit : 100
-		, speedOfInterval : 10
-	}
-</script>
 <script src="jdog.js"></script>
 <script>
-	J.load("j.modules.dataBind.js")
-	J.addWait(
-	"Modules.dataBindExample"
-	, [ "Modules.dataBind", "DomContentLoaded" ]
-	, function dataBindExample_factory(ref) {
 
-		var e = {
-			example1 : document.getElementById("example1")
-			, example2 : document.getElementById("example2")
-			, example3 : document.getElementById("example3")
-			, example1_source : document.getElementById("example1_source")
-			, example2_source : document.getElementById("example2_source")
-			, example3_source : document.getElementById("example3_source")
-		}
-
-		var dog = {
-			e : e
-			, ref : ref
-		}
-
-		ref.dataBind
-			.bind("example1Data", e.example1)
-			.bind("example2Data", e.example2)
-			.bind("example3Data", e.example3)
-			.bind("example1Data", e.example1_source)
-			.bind("example2Data", e.example2_source)
-			.bind("example3Data", e.example3_source)
-
-		e.example1_source.onchange = function(event) {
-			J.add("example1Data"
-			, event.srcElement.value
-			, ref.dataBind.data)
-			ref.dataBind.update()
-		}
-
-		e.example2_source.onchange = function(event) {
-			J.add("example2Data"
-			, event.srcElement.value
-			, ref.dataBind.data)
-			ref.dataBind.update()
-		}
-
-		e.example3_source.onchange = function(event) {
-			J.add("example3Data"
-			, event.srcElement.value
-			, ref.dataBind.data)
-			ref.dataBind.update()
-		}
-
-		setTimeout(function() {
-
-			J.add("example3Data"
-			, "server side example"
-			, ref.dataBind.data)
-			ref.dataBind.update()
-
-		}, 2000)
-
-		return dog
-
-	})
+	J.load(
+		"j.constructors.dataBind.js"
+		, "j.modules.dataBindExample.js"
+		, "j.templates.example5.js"
+	)
 
 </script>
 </html>
