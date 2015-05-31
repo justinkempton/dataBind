@@ -30,10 +30,10 @@ J.addWait(
 			*/
 			puppy.lastValue = { }
 
-			if (data._onUpdate)
-				_onUpdate = data._onUpdate
+			if (puppy.data._onUpdate)
+				_onUpdate = puppy.data._onUpdate
 			else
-				_onUpdate = data._onUpdate = []
+				_onUpdate = puppy.data._onUpdate = []
 
 			dog.onUpdate = function(func) {
 				_onUpdate.push(func)
