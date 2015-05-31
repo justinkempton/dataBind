@@ -1,13 +1,17 @@
 J.addWait(
 	"Constructors.DataBind"
-	, [ ]	
+	, [ ]
 	, function(ref) {
 
-		return function DataBind(data) {
+		return function DataBind(data, options) {
 
 			var Dog = function(){}
 				, dog = Dog.prototype
 				, puppy = new Dog()
+				, _onUpdate
+
+			options = options || { }
+			options.manuallyBindInputs = options.manuallyBindInputs || false
 
 			/*
 			* All data is stored / referenced here
@@ -26,13 +30,20 @@ J.addWait(
 			*/
 			puppy.lastValue = { }
 
-			var _onUpdate = []
+			if (data._onUpdate)
+				_onUpdate = data._onUpdate
+			else
+				_onUpdate = data._onUpdate = []
+
 			dog.onUpdate = function(func) {
 				_onUpdate.push(func)
 			}
 
+			/* retrieve the bind name from the attribute 
+			* @param {HTMLElement} element - any kind of element
+			* */
 			function getBindFromElement(element) {
-				if (element.attributes["data-bind"])
+				if (element && element.attributes["data-bind"])
 					return element.attributes.getNamedItem("data-bind").value
 			}
 
@@ -46,7 +57,10 @@ J.addWait(
 				path = path || getBindFromElement(element)
 
 				var arr = puppy.paths[path]
-				if (!arr) arr = puppy.paths[path] = []
+					, type = J.getType(element)
+
+				if (!arr) 
+					arr = puppy.paths[path] = []
 
 				if (clear)
 					arr.length = 0
@@ -57,6 +71,85 @@ J.addWait(
 				if (J.exists(path, puppy.data))
 					updateElement(element, J.exists(path, puppy.data))
 
+				if (!options.manuallyBindInputs) {
+
+					function setPath(event) {
+						set(path, event.srcElement.value)
+						update()
+					}
+
+					if (type === "HTMLInputElement" || type === "HTMLTextAreaElement")
+						element.onkeyup = setPath
+
+					if (type === "HTMLSelectElement" || type === "HTMLInputElement")
+						element.onchange = setPath
+
+				}
+
+				return puppy
+			}
+
+
+			/*Use this code to pull out contenetNodes from handlebar {{ }} text
+			* each handlebar will be inserted into a <var> tag with the data-bind property set
+			* this only transforms text into text, it does not deal with DOM yet
+			* that will be handled by another library
+			*
+			* @param {string | HTMLElement} html - raw html text or HTMLElement
+			* raw HTML returns modified html
+			* HTMLElement modifies the element
+			* returns modified html code with additional var tags with data-bind properties
+			*
+			* var is a proper html tag! http://www.w3schools.com/tags/tag_var.asp
+			*
+			*/
+			function findNodes (html) {
+
+				var type = J.getType(html)
+					, innerHTML = (type === "Str") ? html : html.innerHTML
+
+				var splits = innerHTML.match(/([^{}]+|{{[^}]*}})/g)
+					, results = ""
+
+				function build(item, inner, allParams) {
+					if (item.search(/[{}]/) === -1) 
+						return results += item
+
+					results += "<var "
+
+					inner = item.replace(/[{\s}]/g, "")
+
+					allParams = inner.split(";")
+
+					// data is default
+					if (allParams[0])
+						results += "data-bind='" + allParams[0] + "' "
+
+					// template is optional - but directs
+					if (allParams[1])
+						results += "data-template='" + allParams[1] + "' "
+
+					results += "></var>"
+				}
+
+				while(splits.length)
+					build(splits.shift())
+
+				if (type === "Str")
+					return results
+
+				html.innerHTML = results
+				return html
+
+			}
+
+			/* autmatically bind all elements with data-bind attribute
+			* @param {HTMLElement} parent_element - contains unbound elements
+			*/
+			function autoBind(parent_element) {
+				var all = findNodes(parent_element).querySelectorAll("*[data-bind]")
+				for (var x = 0; x < all.length; x++)
+					bind(all[x])
 				return puppy
 			}
 
@@ -94,10 +187,10 @@ J.addWait(
 							element.value = value
 					break
 
-					case "HTMLSelectElement" :
-						if (document.activeElement !== element)
-							element.value = value
-					break
+					// case "HTMLSelectElement" :
+					// 	if (document.activeElement !== element)
+					// 		element.value = value
+					// break
 
 					case "HTMLELement" :
 					default :
@@ -191,6 +284,8 @@ J.addWait(
 			}
 
 			dog.bind = bind
+			dog.autoBind = autoBind
+			dog.findNodes = findNodes
 			dog.update = update
 			dog.get = get
 			dog.set = set

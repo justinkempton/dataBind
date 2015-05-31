@@ -27,8 +27,9 @@ J.addWait(
 		var dog = {
 			e : e
 			, ref : ref
+			, db : ref.DataBind()
 		}
-		, db
+		, db = dog.db
 
 
 		function setBinding() {
@@ -138,10 +139,8 @@ J.addWait(
 
 		}
 
-		function init() {
-
-			db = dog.db =  ref.DataBind()
-
+		// initialize all of the data
+		;(function init() {
 
 			db.set("letters", "a b c d e f g h i j k l m n o p q r s t u v w x y z ∅ ∈ ∀ ⑀ ⑄ ⑆")
 			db.set("limit", "1500")
@@ -167,9 +166,7 @@ J.addWait(
 			setBinding()
 			buildGrid()
 
-		}
-
-		init()
+		}())
 
 		return dog
 

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style></style>
+</head>
+<body>
+
+	<div id="outer">
+
+		<div id="inputs">
+			<h4>These are linked to demo inputs updating</h4>
+			<div class="group">
+				<input type="text" data-bind="random1" />
+			</div>
+			<div class="group">
+				<input type="text" data-bind="random2" />
+			</div>
+			<div class="group">
+				<input type="text" data-bind="random3" />
+			</div>
+			<div class="group">
+				<input type="text" data-bind="random4" />
+			</div>
+			<div class="group">
+				<input type="text" data-bind="random5" />
+			</div>
+			<div class="group">
+				<input type="text" data-bind="random6" />
+			</div>
+			<div class="group">
+				<input type="text" data-bind="random7" />
+			</div>
+			<div class="group">
+				{{people;Select}}
+			</div>
+			<div class="group">
+				<h5>shows off that the select gets changed too</h5>
+				{{people;Select}}
+			</div>
+		</div>
+
+		<div id="figureThisOut">
+
+			<h5>display as template called People</h5>
+			{{people;People}}
+
+			<p>Once in awhile we come across a {{random1}} who knows {{random2}} about {{random3}}.</p>
+			<p>This generally frustrates {{random4}} enough to {{random5}}.</p>
+			<p>That sounds great to {{random6}}, but does not to {{random7}}.</p>
+		</div>
+
+	</div>
+
+</body>
+<script src="jdog.js"></script>
+<script>
+
+	J.load(
+		"j.constructors.dataBind.js"
+		, "j.templates.people.js"
+		, "j.templates.select.js"
+		, "j.modules.dataBindExample2.js"
+	)
+
+</script>
+</html>
