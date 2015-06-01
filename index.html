@@ -46,7 +46,7 @@
 		<input type="text" data-bind="letters" style="width:60%;">
 	</div>
 
-	<div id="grid"></div>
+	<div id="grid" data-bind="none" data-template="Grid"></div>
 
 	<div id="example1">&nbsp;</div>
 	<div id="example2">&nbsp;</div>
@@ -72,9 +72,9 @@
 
 	J.load(
 		"j.constructors.dataBind.js"
-		, "j.functions.findNodes.js"
 		, "j.modules.dataBindExample.js"
 		, "j.templates.example5.js"
+		, "j.templates.grid.js"
 	)
 
 </script>

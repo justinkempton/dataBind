@@ -11,7 +11,8 @@ J.addWait(
 				var wrap = document.createElement("div")
 					, db = ref.DataBind(item)
 
-				wrap.innerHTML = "" + "<div>"
+				wrap.innerHTML = "" 
+				+ "<div>"
 				+ "	<span data-bind='FirstName'></span>,"
 				+ "	<span data-bind='LastName'></span>"
 				+ "</div>"

@@ -33,18 +33,18 @@
 				<input type="text" data-bind="random7" />
 			</div>
 			<div class="group">
-				{{people|Select}}
+				{{Example2.people, Example2.selected_people | Select}}
 			</div>
 			<div class="group">
 				<h5>shows off that the select gets changed too</h5>
-				{{people|Select}}
+				{{Example2.people, Example2.selected_people | Select}}
 			</div>
 		</div>
 
 		<div id="figureThisOut">
 
 			<h5>display as template called People</h5>
-			{{people|People}}
+			{{Example2.people|People}}
 
 			<p>Once in awhile we come across a {{random1}} who knows {{random2}} about {{random3}}.</p>
 			<p>This generally frustrates {{random4}} enough to {{random5}}.</p>
@@ -61,7 +61,7 @@
 		"j.constructors.dataBind.js"
 		, "j.templates.people.js"
 		, "j.templates.select.js"
-		, "j.modules.dataBindExample2.js"
+		, "j.modules.dataBindExample3.js"
 	)
 
 </script>

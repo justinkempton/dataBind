@@ -1,62 +1,45 @@
-J.addWait(
-	"Templates.Select"
-	, [ "Constructors.DataBind" ]
-	, function (ref) {
+J.add( "Templates.Select", function Select (parent_element, data, o) {
 
-		return function Select (parent_element, data) {
+	// pass this path into db.set(savePath, value)
+	var savePath = o.paths[1]
+		, db = o.db
 
-			/* build out an item that exists in a loop */
-			function buildItem(index, item) {
+	function inner() {
+		var inner = ""
+			, item
 
-				var wrap = document.createElement("option")
-
-				if (item.Selected)
-					wrap.setAttribute("selected", "selected")
-
-				wrap.innerHTML = item.Display
-				wrap.setAttribute("value", item.Id)
-
-				return wrap
-			}
-
-			function events(select) {
-				var db = ref.DataBind(data)
-
-				select.onchange = function(event) {
-					value = event.target.value
-
-					for (var x = 0; x < data.length; x++) {
-						if (data[x].Id == value)
-							data[x].Selected = true
-						else
-							data[x].Selected = false
-					}
-
-					db.update()
-
-				}
-			}
-
-			/* loop the data */
-			function init() {
-
-				// clear it out
-				parent_element.innerHTML = ""
-
-				var select = document.createElement("select")
-
-				for (var x = 0; x < data.length; x++)
-					select.appendChild(buildItem(x, data[x], data))
-
-				events(select)
-
-				parent_element.appendChild(select)
-			}
-
-			ref.DataBind(data).onUpdate(init)
-
-			init()
-
+		for (var x = 0; x < data.length; x++) {
+			item = data[x]
+			inner += "<option value='"
+			inner += item.Id
+			inner += "'"
+			inner += item.Selected ? "Selected" : ""
+			inner += " >"
+			inner += item.Display
+			inner += "</option>"
 		}
+
+		return inner
+	}
+
+	function init() {
+
+		var html = ""
+		+ "<select>"
+		+ inner()
+		+ "</select>"
+
+		parent_element.innerHTML = html
+
+		parent_element.firstChild.onchange = function(event) {
+			db.set(savePath, event.target.value)
+				.update()
+		}
+
+	}
+
+	init()
+
+	db.on("update", init)
 
 })

@@ -3,7 +3,7 @@ J.addWait(
 	, [ "Constructors.DataBind" ]
 	, function (ref) {
 
-		return function Example5 (parent_element, data) {
+		return function Example5 (parent_element, data, o) {
 
 			var parentDB = ref.DataBind(data)
 
@@ -38,7 +38,7 @@ J.addWait(
 
 			}
 
-			parentDB.onUpdate(init)
+			parentDB.on("update", init)
 
 			init()
 

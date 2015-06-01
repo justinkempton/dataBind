@@ -52,6 +52,7 @@ J.addWait(
 				.bind(e.limitDisplay)
 				.bind(e.speedDisplay)
 				.bind(e.letters)
+				.bind(e.grid)
 
 			e.example1_source.onkeyup = function(event) {
 				db.set("example1Data", event.srcElement.value)
@@ -71,23 +72,23 @@ J.addWait(
 			e.letters.onkeyup = function(event) {
 				db.set("letters", event.srcElement.value)
 				db.update()
-				buildGrid()
+					.trigger("updateGrid")
 			}
 
 			e.limit.onkeyup = function(event) {
 				db.set("limit", event.srcElement.value)
 				db.update()
-				buildGrid()
+					.trigger("updateGrid")
 			}
 
 			e.speed.onkeyup = function(event) {
 				db.set("speed", event.srcElement.value)
 				db.update()
-				buildGrid()
+					.trigger("updateGrid")
 			}
 
 			// fancy concatination example
-			db.onUpdate(function() {
+			db.on("update", function() {
 				db.set("moreComplicated.example.name"
 					, db.get("example1Data") + db.get("example2Data") + db.get("example3Data"))
 			})
@@ -98,52 +99,13 @@ J.addWait(
 				.update()
 			}, 2000)
 
-
-		}
-
-		// set a false interval
-		var interval = setInterval(function(){}, 1000)
-
-		// example of building a large collection of data points
-		function buildGrid(clear) {
-
-			e.grid.innerHTML = ""
-			clearInterval(interval)
-
-			var limit = Number(db.get("limit"))
-				, speed = Number(db.get("speed"))
-				// , letters = "a b c d e f g h i j k l m n o p q r s t u v w x y z ∅ ∈ ∀ ⑀ ⑄ ⑆"
-				, letters = db.get("letters")
-				, lettersSplit = letters.split(" ")
-
-			for (var x = 0; x < limit; x++)
-			(function(index) {
-
-				var element = document.createElement("div")
-					, random = Math.random() * 1000
-
-				e.grid.appendChild(element)
-
-				db.bind(element, "grid_" + String(index), true)
-
-			}(x))
-
-			interval = setInterval(function() {
-
-				for (var x = 0; x < limit; x++)
-					db.set("grid_" + x, lettersSplit[ Math.floor(Math.random() * lettersSplit.length) ])
-
-				db.update()
-
-			}, speed)
-
 		}
 
 		// initialize all of the data
 		;(function init() {
 
 			db.set("letters", "a b c d e f g h i j k l m n o p q r s t u v w x y z ∅ ∈ ∀ ⑀ ⑄ ⑆")
-			db.set("limit", "1500")
+			db.set("limit", "500")
 			db.set("speed", "100")
 			db.set("example1Data", "hello world")
 			db.set("example2Data", "hello world 2")
@@ -162,9 +124,7 @@ J.addWait(
 				}
 			])
 
-
 			setBinding()
-			buildGrid()
 
 		}())
 

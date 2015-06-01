@@ -8,7 +8,33 @@ J.addWait(
 			var Dog = function(){}
 				, dog = Dog.prototype
 				, puppy = new Dog()
-				, _onUpdate
+
+			function on(path, fun, clear) {
+
+				var parent = puppy.data.events
+				
+				if (!parent)
+					parent = puppy.data.events = {}
+
+				if (!parent[path])
+					parent[path] = []
+
+				if (clear)
+					parent[path].length = 0
+
+				parent[path].push(fun)
+
+				return puppy
+			}
+
+			function trigger(path) {
+				var args = arguments
+				, all = J.exists("data.events." + path, puppy, [])
+						.forEach(function(item) {
+							item.apply(this, args)
+						})
+				return puppy
+			}
 
 			options = options || { }
 			options.manuallyBindInputs = options.manuallyBindInputs || false
@@ -20,6 +46,7 @@ J.addWait(
 
 			/*
 			* Meta data about paths and their dom elements
+			* paths are paths to data
 				"fard.main.userName" : []
 			*/
 			puppy.paths = { }
@@ -30,15 +57,6 @@ J.addWait(
 			*/
 			puppy.lastValue = { }
 
-			if (puppy.data._onUpdate)
-				_onUpdate = puppy.data._onUpdate
-			else
-				_onUpdate = puppy.data._onUpdate = []
-
-			dog.onUpdate = function(func) {
-				_onUpdate.push(func)
-			}
-
 			/* retrieve the bind name from the attribute 
 			* @param {HTMLElement} element - any kind of element
 			* */
@@ -47,14 +65,32 @@ J.addWait(
 					return element.attributes.getNamedItem("data-bind").value
 			}
 
+			/* retrieve optional data-source from element
+			* @param {HTMLElement} element - any kind of element
+			* */
+			function getDataSourceFromElement(element) {
+				if (element && element.attributes["data-source"])
+					return element.attributes.getNamedItem("data-source").value
+			}
+
 			/* Binds data to a dom element
 			* 
 			* @param domElement - element to update when update command is fired
 			* @param path - (optional) data path relative to dataBind module
 			* @param clear - (optional) clears out any existing elements within the array that are bound to that data
 			*/
-			function bind(element, path, clear) {
+			function bind(element, path, subOptions) {
+
+				subOptions = subOptions || {}
+
+				// clear out all other element binds
+				subOptions.clear = subOptions.clear || false
+
 				path = path || getBindFromElement(element)
+
+				// other sources of data needed by template
+				var source = subOptions.source = subOptions.source || getDataSourceFromElement(element) || path || ""
+				source = source.replace(/\s/g,"").split(",")
 
 				var arr = puppy.paths[path]
 					, type = J.getType(element)
@@ -62,14 +98,18 @@ J.addWait(
 				if (!arr) 
 					arr = puppy.paths[path] = []
 
-				if (clear)
+				if (subOptions.clear)
 					arr.length = 0
 
 				arr.push(element)
-				puppy.lastValue[path] = J.exists(path, puppy.data)
+				puppy.lastValue[path] = J.exists(path, puppy.data, "")
 
-				if (J.exists(path, puppy.data))
-					updateElement(element, J.exists(path, puppy.data))
+				updateElement(element, J.exists(path, puppy.data, ""), {
+					db : puppy
+					, paths : source
+					, dataArr : getAll(source, [] )
+					, dataObj : getAll(source, {} )
+				})
 
 				if (!options.manuallyBindInputs) {
 
@@ -111,7 +151,7 @@ J.addWait(
 				var splits = innerHTML.match(/([^{}]+|{{[^}]*}})/g)
 					, results = ""
 
-				function build(item, inner, allParams) {
+				function build(item, inner, allParams, allData) {
 					if (item.search(/[{}]/) === -1) 
 						return results += item
 
@@ -119,11 +159,16 @@ J.addWait(
 
 					inner = item.replace(/[{\s}]/g, "")
 
-					allParams = inner.split(";")
+					allParams = inner.split("|")
+					allData = allParams[0].split(",")
 
-					// data is default
-					if (allParams[0])
-						results += "data-bind='" + allParams[0] + "' "
+					// data is default, assume that is the source and bind for all data
+					if (allData[0])
+						results += "data-bind='" + allData[0] + "' "
+
+					// if other data is required to compose the template, include them as comma seperated params
+					if (allData.length > 1)
+						results += "data-source='" + allData.join(",") + "' "
 
 					// template is optional - but directs
 					if (allParams[1])
@@ -155,14 +200,17 @@ J.addWait(
 
 			/* Update a single element that is a template element
 			* @param {HTMLElement} element - the element to update
-			* @param {string} value - the new value(s)
+			* @param {any} value - the new value(s)
+			* @param {object} options - the new value(s)
 			*/
-			function updateTemplate(element, value) {
+			function updateTemplate(element, value, options) {
+
+				var args = arguments
 
 				var templatePath = element.attributes.getNamedItem("data-template").value
 
 				J.waitExists("Templates." + templatePath, function(template) {
-					template(element, value)
+					template.apply(this, args)
 				})
 
 			}
@@ -173,24 +221,23 @@ J.addWait(
 			* @param {HTMLElement} element - the element to update
 			* @param {string} value - the new value
 			*/
-			function updateElement(element, value) {
+			function updateElement(element, value, subOptions) {
+
+				var args = arguments
+				var type = J.getType(element)
 
 				if (element.attributes["data-template"]) 
-					return updateTemplate(element, value)
+					return updateTemplate.apply(this, args)
 
-				var type = J.getType(element)
+				if (document.activeElement === element)
+					return
 
 				switch (type) {
 
 					case "HTMLInputElement" :
-						if (document.activeElement !== element)
-							element.value = value
-					break
-
-					// case "HTMLSelectElement" :
-					// 	if (document.activeElement !== element)
-					// 		element.value = value
-					// break
+					case "HTMLSelectElement" :
+						element.value = value
+						break
 
 					case "HTMLELement" :
 					default :
@@ -208,6 +255,7 @@ J.addWait(
 
 				var type = J.getType(value)
 					, store
+					, oldValue = puppy.lastValue[path]
 					, passedByRef = false
 
 				switch(type) {
@@ -221,12 +269,8 @@ J.addWait(
 						passedByRef = true
 				}
 
-				if (compare && passedByRef)
-					return JSON.stringify(value) === puppy.lastValue[path]
-				else if (compare)
-					return value === puppy.lastValue[path]
-
 				puppy.lastValue[path] = store
+				return store === oldValue
 
 			}
 
@@ -237,7 +281,7 @@ J.addWait(
 
 			/* compares the value with puppy.lastValue */
 			function compareLastValue(path, value) {
-				lastValue(path, value, true)
+				return lastValue(path, value, true)
 			}
 
 			/* Update an array of elements with new value 
@@ -247,14 +291,27 @@ J.addWait(
 			*/
 			function updatePath(path, elements) {
 				var value = J.exists(path, puppy.data)
+					, element
 
 				/* if it's a match, do nothing */
 				if (compareLastValue(path, value))
 					return
 
 				/* otherwise keep going */
-				for (var x in elements) 
-					updateElement(elements[x], value, path)
+				for (var x in elements)  
+				(function(index, element, allElements, source) {
+
+					source = getDataSourceFromElement(element) || ""
+					source = source.replace(/\s/g,"").split(",")
+
+					updateElement(element, value, {
+						db : puppy
+						, paths : source
+						, dataArr : getAll(source, [] )
+						, dataObj : getAll( source, {} )
+					})
+					
+				}(x, elements[x], elements))
 
 				storeLastValue(path, value)
 
@@ -265,9 +322,14 @@ J.addWait(
 			* to inform that the data has been updated
 			*/
 			function update() {
-				for (var y in _onUpdate) _onUpdate[y]()
+
+				trigger("preUpdate")
+				trigger("update")
+
 				for (var x in puppy.paths) 
 					updatePath(x, puppy.paths[x])
+
+				trigger("posUpdate")
 
 				return puppy
 			}
@@ -275,6 +337,18 @@ J.addWait(
 			/* get the value from this path */
 			function get(path, def) {
 				return J.exists(path, puppy.data, (def || ""))
+			}
+
+			/* get the values from all paths */
+			function getAll(pathArray, thing, type) {
+				thing = thing || {}
+				type = type || J.getType(thing)
+				for (var x = 0; x < pathArray.length; x++)
+					if (type === "Arr")
+						thing.push(J.exists(pathArray[x], puppy.data))
+					else
+						thing[pathArray[x]] = J.exists(pathArray[x], puppy.data)
+				return thing
 			}
 
 			/* set the path to this value */
@@ -289,6 +363,9 @@ J.addWait(
 			dog.update = update
 			dog.get = get
 			dog.set = set
+			dog.getAll = getAll
+			dog.on = on
+			dog.trigger = trigger
 
 			return puppy
 
