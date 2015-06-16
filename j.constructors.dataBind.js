@@ -320,8 +320,14 @@ J.addWait(
 			/* Updates the data object 
 			* this will be a global call that all useful ajax requests will call 
 			* to inform that the data has been updated
+			* @param {string} path - optional, if set then it updates that path immediately
 			*/
-			function update() {
+			function update(path) {
+
+				var elements
+
+				if (path)
+					return updatePath(path, puppy.paths[path])
 
 				trigger("preUpdate")
 				trigger("update")
@@ -352,8 +358,10 @@ J.addWait(
 			}
 
 			/* set the path to this value */
-			function set(path, value) {
+			function set(path, value, noUpdate) {
 				J.add(path, value, puppy.data)
+				if (!noUpdate)
+					update(path)
 				return puppy
 			}
 
@@ -372,3 +380,4 @@ J.addWait(
 		}
 
 	})
+
