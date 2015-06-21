@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" class="API">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="user-scalable=1, width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>jDog API</title>
+<link rel="stylesheet" type="text/css" href="//jdog.github.io/api/style.css?243" id="__jdog_github_io_api_style_css">
+<link rel="stylesheet" type="text/css" href="//jdog.github.io/api/sidePanel.css?627" id="__jdog_github_io_api_sidePanel_css">
+</head>
+
+<body class="AlwaysOpen">
+	<div id="sidePanel" class="Open">
+		<span class="icon" style="display:none;">≡</span>
+		<div class="guts">
+			<div style="margin-bottom:20px;"><a href="//jdog.github.io/api/index.html">↰ see full API</a></div>
+			<div id="APILegend" class="SubSection"></div>
+		</div>
+	</div>
+
+	<div class="wrapper">
+		<h1>犬J<span style="color:rgb(117,228,29)">DOҨ</span></h1>
+		<div id="API"></div>
+	</div>
+</body>
+
+<script src="jdog.small.js"></script>
+<script src="jdog.bridgeTo2.0.js"></script>
+
+<!-- loads all required files  -->
+<script src="//jdog.github.io/api/page.modules.remoteAPI.js"></script>
+<script src="j.modules.localAPI.js"></script>
+
+<script>
+
+	J.addWait(
+		"Modules.demo"
+		, [ "Modules.remoteAPI" ] // local inherits from remote
+		, function(ref) {
+
+			var dog = ref.remoteAPI
+				, root = location.host === "jdog.github.io" ? "//jdog.github.io/jdog/" : ""
+
+			PAGE.load( root + "j.docs.dataBind.js")
+
+			dog.buildAllSections([ "Docs.DataBind" ])
+
+			return dog
+
+		})
+
+</script>
+
+</html>
