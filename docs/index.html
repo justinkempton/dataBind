@@ -28,7 +28,6 @@
 
 <!-- loads all required files  -->
 <script src="//jdog.github.io/api/page.modules.remoteAPI.js"></script>
-<script src="j.modules.localAPI.js"></script>
 
 <script>
 
@@ -38,9 +37,8 @@
 		, function(ref) {
 
 			var dog = ref.remoteAPI
-				, root = location.host === "jdog.github.io" ? "//jdog.github.io/jdog/" : ""
 
-			PAGE.load( root + "j.docs.dataBind.js")
+			PAGE.load("j.docs.dataBind.js")
 
 			dog.buildAllSections([ "Docs.DataBind" ])
 
