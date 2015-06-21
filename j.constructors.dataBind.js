@@ -326,8 +326,10 @@ J.addWait(
 
 				var elements
 
-				if (path)
+				if (path) {
+					trigger(path)
 					return updatePath(path, puppy.paths[path])
+				}
 
 				trigger("preUpdate")
 				trigger("update")
@@ -335,7 +337,7 @@ J.addWait(
 				for (var x in puppy.paths) 
 					updatePath(x, puppy.paths[x])
 
-				trigger("posUpdate")
+				trigger("postUpdate")
 
 				return puppy
 			}
@@ -380,4 +382,3 @@ J.addWait(
 		}
 
 	})
-
