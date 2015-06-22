@@ -77,7 +77,7 @@ J.addWait(
 			* 
 			* @param domElement - element to update when update command is fired
 			* @param path - (optional) data path relative to dataBind module
-			* @param clear - (optional) clears out any existing elements within the array that are bound to that data
+			* @param subOptions.clear - (optional) clears out any existing elements within the array that are bound to that data
 			*/
 			function bind(element, path, subOptions) {
 

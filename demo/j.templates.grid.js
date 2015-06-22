@@ -43,7 +43,7 @@ J.add( "Templates.Grid", function Grid (parent_element, empty, o) {
 		interval = setInterval(function() {
 
 			for (var x = 0; x < limit; x++)
-				db.set("grid_" + x, lettersSplit[ Math.floor(Math.random() * lettersSplit.length) ])
+				db.set("grid_" + x, lettersSplit[ Math.floor(Math.random() * lettersSplit.length) ], true)
 
 			db.update()
 

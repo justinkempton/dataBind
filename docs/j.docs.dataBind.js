@@ -11,7 +11,10 @@ J.add("Docs.DataBind", {
 			, Tags : [ "data binding" ]
 			, Source : [ "j.constructors.dataBind.js" ]
 			, Parent : [ "Constructors" ]
-			, Description : "Base constructor for instantiating a new DataBind object."
+			, Description : [
+				"Base constructor for instantiating a new DataBind object. This library was written as a proof of concept for attaching data to DOM elements. It leverages the jDog exist library for resolving object property chains."
+				, "There are two examples. 1) is a test of speed for updating using this code: <a href='../demo/index.html'>Demo1</a>. and 2) for common dataBinding with example of how to build custom templates: <a href='../demo/index2.html'>Demo2</a>."
+			]
 			, Examples : [ ]
 			, Returns : "new DataBind object"
 		}
