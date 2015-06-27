@@ -24,7 +24,7 @@ J.add("Docs.DataBind", {
 				+ " simple elements like divs, and form inputs, all that is needed is one data point."
 			]
 			, Examples : [
-				"// Standard simple notation\n// {{ path.to.data }}\n//\n// for custom templates\n// {{ data | TemplateName }}\n// \n// For multi data points\n// {{ path.to.data, path.to.data || TemplateName }}\n//\n// for simple inputs\n// &lt;input type=\"text\" data-bind=\"path.to.data\" /&#x3e;\n// \n// for customizing\n// &lt;div data-bind=\"path.to.data\"&#x3e;&lt;/div&#x3e;\n//\n// currently all repeating, if needed, \n// should be handled through the template"
+				"// Standard simple notation\n// {{ path.to.data }}\n//\n// for custom templates\n// {{ data | TemplateName }}\n// \n// For multi data points\n// {{ path.to.data, path.to.data || TemplateName }}\n//\n// for simple inputs\n// &lt;input type=\"text\" data-bind=\"path.to.data\" /&#x3e;\n// \n// for customizing\n// &lt;div data-bind=\"path.to.data\"&#x3e;&lt;/div&#x3e;\n//\n// currently all repeating, if needed, \n// should be handled through the template\n//\n//\n// to bind html\n\nvar parentElement = document.getElementById(\"exampleArea\")\n, db = ref.DataBind( data ).autoBind( parentElement )"
 			]
 			, Source : [ "//github.com/jdog/dataBind" ]
 			, Parent : [ "Constructors" ]
