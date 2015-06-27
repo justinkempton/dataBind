@@ -8,9 +8,9 @@ J.add("Docs.DataBind", {
 				"The following code was created over a long weekend as a proof of concept. I wanted to prove"
 				+ " to myself the simple idea of associating data to dom elements that made sense in my head"
 				+ " made as much sense written out in code form."
-				, "DOM elements that have dynamic content are bound to a data 'path'. When this path changes"
-				+ " then the element will change it's content. If the value of the previous is the same as the new"
-				+ " then no update occurs."
+				, "DOM elements with dynamic content are bound to a data 'path'. When this path changes"
+				+ " the elements will change their content. "
+				+ " Updates only occur when there is a difference in value."
 				, "For simple elements, the innerHTML gets changed. For form elements, the value. And for more"
 				+ " complex elements there is the possiblity of adding a template which gets updated."
 			]
