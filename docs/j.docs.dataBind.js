@@ -18,9 +18,10 @@ J.add("Docs.DataBind", {
 				+ " templating engines use moustache syntax and how they tackle repeatable items. "
 				+ " So I settled on allowing multiple data point associations. For a select input to function"
 				+ " there must be an array of items, and the selected item passed in. When either value changes the "
-				+ " associated elements much change as well."
+				+ " associated elements change as well."
 				, "Conceivably there is no end to the number of associations for generating controls. But for "
 				+ " simple elements like divs, and form inputs, all that is needed is one data point."
+				, "See the syntax for handlebar like notation."
 			]
 			, Examples : [
 				"// Standard simple notation\n// {{ path.to.data }}\n//\n// for custom templates\n// {{ data | TemplateName }}\n// \n// For multi data points\n// {{ path.to.data, path.to.data || TemplateName }}\n//\n// for simple inputs\n// &lt;input type=\"text\" data-bind=\"path.to.data\" /&#x3e;\n// \n// for customizing\n// &lt;div data-bind=\"path.to.data\"&#x3e;&lt;/div&#x3e;\n//\n// currently all repeating, if needed, \n// should be handled through the template\n//\n//\n// to bind html\n\nvar parentElement = document.getElementById(\"exampleArea\")\n, db = ref.DataBind( data ).autoBind( parentElement )"
