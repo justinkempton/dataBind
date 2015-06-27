@@ -14,7 +14,7 @@ J.add("Docs.DataBind", {
 				, "For simple elements, the innerHTML gets changed. For form elements, the value. And for more"
 				+ " complex elements there is the possiblity of adding a template which gets updated."
 			]
-			, Source : [ "https://github.com/jdog/dataBind" ]
+			, Source : [ "//github.com/jdog/dataBind" ]
 			, Parent : [ "Constructors" ]
 		}
 		, {
