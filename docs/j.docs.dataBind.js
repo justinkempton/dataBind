@@ -23,6 +23,9 @@ J.add("Docs.DataBind", {
 				, "Conceivably there is no end to the number of associations for generating controls. But for "
 				+ " simple elements like divs, and form inputs, all that is needed is one data point."
 			]
+			, Examples : [
+				"// in your html code this is the correct syntax for creating custom templates\n// here is the example of the Select input seen on the demo page\n//\n// {{Example2.people, Example2.selected_people | Select}}\n//\n// notice there are two data points associated, this is limitless"
+			]
 			, Source : [ "//github.com/jdog/dataBind" ]
 			, Parent : [ "Constructors" ]
 		}
