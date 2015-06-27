@@ -2,8 +2,20 @@ J.add("Docs.DataBind", {
 
 	jDog : "version 3.*"
 	, Methods : [
-
 		{
+			Name : "About"
+			, Description : [
+				"The following code was created over a long weekend as a proof of concept. I wanted to prove"
+				+ " to myself the simple idea of associating data to dom elements that made sense in my head"
+				+ " made as much sense written out in code form."
+				, "DOM elements that have dynamic content are bound to a data 'path'. When this path changes"
+				+ " then the element will change it's content. If the value of the previous is the same as the new"
+				+ " then no update occurs."
+				, "For simple elements, the innerHTML gets changed. For form elements, the value. And for more"
+				+ " complex elements there is the possiblity of adding a template which gets updated."
+			]
+		}
+		, {
 			Name : "DataBind"
 			, Usage : [
 				, [ false, "var db = DataBind( object data )" ]
@@ -12,8 +24,15 @@ J.add("Docs.DataBind", {
 			, Source : [ "j.constructors.dataBind.js" ]
 			, Parent : [ "Constructors" ]
 			, Description : [
-				"Base constructor for instantiating a new DataBind object. This library was written as a proof of concept for attaching data to DOM elements. It leverages the jDog exist library for resolving object property chains."
-				, "There are two examples. 1) is a test of speed for updating using this code: <a href='http://jdog.github.io/dataBind/demo/index.html'>Demo1</a>. and 2) for common dataBinding with example of how to build custom templates: <a href='http://jdog.github.io/dataBind/demo/index2.html'>Demo2</a>."
+				"Base constructor for instantiating a new DataBind object. This library was written"
+				+ " as a proof of concept for attaching data to DOM elements. It leverages the jDog"
+				+ " exist library for resolving object property chains."
+				
+				, "There are two examples."
+				+ " 1) is a test of speed for updating using this code:"
+				+ " <a href='http://jdog.github.io/dataBind/demo/index.html'>Demo1</a>."
+				+ " and 2) for common dataBinding with example of how to build custom templates:"
+				+ " <a href='http://jdog.github.io/dataBind/demo/index2.html'>Demo2</a>."
 			]
 			, Examples : [ ]
 			, Returns : "new DataBind object"
@@ -60,10 +79,10 @@ J.add("Docs.DataBind", {
 			, Tags : [ "data binding" ]
 			, Source : [ "j.constructors.dataBind.js" ]
 			, Parent : [ "Constructors" ]
-			, Description : "Use this code to pull out contenetNodes from handlebar {{ }} text"
-				+ "each handlebar will be inserted into a <var> tag with the data-bind property set"
-				+ "this only transforms text into text, it does not deal with DOM yet"
-				+ "that will be handled by another library"
+			, Description : "Use this code to pull out contentNodes from handlebar {{ }} text"
+			+ " each handlebar will be inserted into a <var> tag with the data-bind property set"
+			+ " this only transforms text into text, it does not deal with DOM yet"
+			+ " that will be handled by another library"
 
 			, Examples : [
 				"var html = \"&lt;div&gt;\"\n+ \"{{helloWorld}}\"\n+ \"{{fard}}\"\n+ \"&lt;div&#x3e;\"\n\nvar db = DataBind(data)\ndb.findNodes( html )\n// returns \"&ltdiv&#x3e;&ltvar data-bind='helloWorld'&#x3e;&lt;/var&#x3e;&ltvar data-bind='fard'&#x3e;&lt;/var&#x3e;&lt;/div&#x3e;\""
@@ -80,7 +99,10 @@ J.add("Docs.DataBind", {
 			, Tags : [ "data binding" ]
 			, Source : [ "j.constructors.dataBind.js" ]
 			, Parent : [ "Constructors" ]
-			, Description : "Low level method for directly binding elements with data within the instantiated DataBind object. Useful for calling manually."
+			, Description : [
+				"Low level method for directly binding elements with data within the"
+				+ " instantiated DataBind object. Useful for calling manually."
+			]
 			, Examples : [
 				"var data = {\n  helloWorld : \"magic\"\n}\n\nvar element = document.querySelector(\"div\")\n  , db = DataBind(data)\n\ndb.bind( element, \"helloWorld\" )\n"
 			]
