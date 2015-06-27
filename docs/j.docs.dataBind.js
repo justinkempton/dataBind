@@ -103,7 +103,7 @@ J.add("Docs.DataBind", {
 				"var html = \"&lt;div&gt;\"\n+ \"{{helloWorld}}\"\n+ \"{{fard}}\"\n+ \"&lt;div&#x3e;\"\n\nvar db = DataBind(data)\ndb.findNodes( html )\n// returns \"&ltdiv&#x3e;&ltvar data-bind='helloWorld'&#x3e;&lt;/var&#x3e;&ltvar data-bind='fard'&#x3e;&lt;/var&#x3e;&lt;/div&#x3e;\""
 				, "var html = \"&lt;div&gt;\"\n+ \"{{helloWorld,fard}}\"\n+ \"{{fard|BoolInput}}\"\n+ \"&lt;div&#x3e;\"\n\nvar db = DataBind(data)\ndb.findNodes( html )\n// returns \"&ltdiv&#x3e;&ltvar data-bind='helloWorld' data-source='helloWorld,fard'&#x3e;&lt;/var&#x3e;&ltvar data-bind='fard' data-template='BoolInput'&#x3e;&lt;/var&#x3e;&lt;/div&#x3e;\""
 			]
-			, Returns : "DataBind db"
+			, Returns : "HTMLElement element, or string html"
 		}
 
 		, {
