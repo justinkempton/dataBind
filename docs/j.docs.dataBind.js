@@ -24,7 +24,7 @@ J.add("Docs.DataBind", {
 				, "See the syntax for handlebar like notation."
 			]
 			, Examples : [
-				"&lt;div id=\"exampleArea\"&#x3e;\n\n// Standard simple notation\n{{ path.to.data }}\n//\n// for custom templates\n{{ data | TemplateName }}\n// \n// For multi data points\n{{ path.to.data, path.to.data || TemplateName }}\n//\n// for simple inputs\n&lt;input type=\"text\" data-bind=\"path.to.data\" /&#x3e;\n// \n// for customizing\n&lt;div data-bind=\"path.to.data\"&#x3e;&lt;/div&#x3e;\n//\n// currently all repeating, if needed, \n// should be handled through the template\n\n&lt;/div&#x3e;\n\n&lt;script&#x3e;\n\n// to bind html\nvar parentElement = document.getElementById(\"exampleArea\")\n  , data = { path : { to : {  data : \"hello world\"  } } }\n  , db = J.Constructors.DataBind( data ).autoBind( parentElement )\n\n&lt;/script&#x3e;"
+				"&lt;div id=\"exampleArea\"&#x3e;\n\n// Standard simple notation\n{{ path.to.data }}\n//\n// for custom templates\n{{ data | TemplateName }}\n// \n// For multi data points\n{{ path.to.data, path.to.data | TemplateName }}\n//\n// for simple inputs\n&lt;input type=\"text\" data-bind=\"path.to.data\" /&#x3e;\n// \n// for customizing\n&lt;div data-bind=\"path.to.data\"&#x3e;&lt;/div&#x3e;\n//\n// currently all repeating, if needed, \n// should be handled through the template\n\n&lt;/div&#x3e;\n\n&lt;script&#x3e;\n\n// to bind html\nvar parentElement = document.getElementById(\"exampleArea\")\n  , data = { path : { to : {  data : \"hello world\"  } } }\n  , db = J.Constructors.DataBind( data ).autoBind( parentElement )\n\n&lt;/script&#x3e;"
 			]
 			, Source : [ "//github.com/jdog/dataBind" ]
 			, Parent : [ "Constructors" ]
