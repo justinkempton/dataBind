@@ -3,7 +3,7 @@ J.add("Docs.DataBind", {
 	jDog : "version 3.*"
 	, Methods : [
 		{
-			Name : "About"
+			Name : "About DataBind"
 			, Description : [
 				"The following code was created over a long weekend as a proof of concept. I wanted to prove"
 				+ " to myself that the simple idea of associating data to DOM elements would make sense written"
@@ -60,7 +60,8 @@ J.add("Docs.DataBind", {
 			, Tags : [ "data binding" ]
 			, Source : [ "//github.com/jdog/dataBind" ]
 			, Parent : [ "Constructors" ]
-			, Description : "Higher level method for binding elements which contain data-bind attribute."
+			, Description : "Higher level method for binding either sub elements which contain data-bind attribute or "
+			+ " special 'handlebar' tags that exist inside the element."
 			, Examples : [
 				"var data = {\n  helloWorld : \"magic\"\n  , fard : true\n}\n\nvar html = \"&lt;div&gt;\"\n+ \"&lt;span data-bind='helloWorld'&#x3e;&lt;/span&#x3e;\"\n+ \"&lt;span data-bind='fard'&#x3e;&lt;/span&#x3e;\"\n+ \"&lt;div&#x3e;\"\n\nvar element = document.querySelector(\"div\")\n  , db = DataBind(data)\n\nelement.innerHTML = html\n\ndb.autoBind( element )\n"
 			]
