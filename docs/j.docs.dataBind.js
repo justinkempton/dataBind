@@ -15,7 +15,7 @@ J.add("Docs.DataBind", {
 				, "That was the general idea and after a few hours I had a working prototype."
 				+ " Some complexity came when I moved passed simple elements and on to a select input. "
 				, "Select inputs really are tied to two different points of data. The array of items, and the "
-				+ " selected item. The server will only care about the selected item, throughing away the array
+				+ " selected item. The server will only care about the selected item, throughing away the array"
 				+ " used to generate the list of choices."
 				, "This presented an interesting challenge which gave me a better understanding of why different"
 				+ " templating engines use moustache syntax and how they go about repeatable items. "
