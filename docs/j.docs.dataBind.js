@@ -24,7 +24,7 @@ J.add("Docs.DataBind", {
 				+ " simple elements like divs, and form inputs, all that is needed is one data point."
 			]
 			, Examples : [
-				"// in your html code this is the correct syntax for creating custom templates\n// here is the example of the Select input seen on the demo page\n//\n// {{Example2.people, Example2.selected_people | Select}}\n//\n// notice there are two data points associated, this is limitless"
+				"// Standard simple notation\n// {{ path.to.data }}\n//\n// for custom templates\n// {{ data | TemplateName }}\n// \n// For multi data points\n// {{ path.to.data, path.to.data || TemplateName }}\n//\n// for simple inputs\n// &lt;input type=\"text\" data-bind=\"path.to.data\" /&#x3e;\n// \n// for customizing\n// &lt;div data-bind=\"path.to.data\"&#x3e;&lt;/div&#x3e;\n//\n// currently all repeating, if needed, \n// should be handled through the template"
 			]
 			, Source : [ "//github.com/jdog/dataBind" ]
 			, Parent : [ "Constructors" ]
