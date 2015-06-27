@@ -23,7 +23,7 @@ J.add("Docs.DataBind", {
 				, [ false, "var db = DataBind( object data )" ]
 			]
 			, Tags : [ "data binding" ]
-			, Source : [ "https://github.com/jdog/dataBind" ]
+			, Source : [ "//github.com/jdog/dataBind" ]
 			, Parent : [ "Constructors" ]
 			, Description : [
 				"Base constructor for instantiating a new DataBind object. This library was written"
@@ -32,9 +32,9 @@ J.add("Docs.DataBind", {
 				
 				, "There are two examples."
 				+ " 1) is a test of speed for updating using this code:"
-				+ " <a href='http://jdog.github.io/dataBind/demo/index.html'>Demo1</a>."
+				+ " <a href='//jdog.github.io/dataBind/demo/index.html'>Demo1</a>."
 				+ " and 2) for common dataBinding with example of how to build custom templates:"
-				+ " <a href='http://jdog.github.io/dataBind/demo/index2.html'>Demo2</a>."
+				+ " <a href='//jdog.github.io/dataBind/demo/index2.html'>Demo2</a>."
 			]
 			, Examples : [ ]
 			, Returns : "new DataBind object"
@@ -46,7 +46,7 @@ J.add("Docs.DataBind", {
 				[ false, "db.autoBind( HTMLElement element )" ]
 			]
 			, Tags : [ "data binding" ]
-			, Source : [ "https://github.com/jdog/dataBind" ]
+			, Source : [ "//github.com/jdog/dataBind" ]
 			, Parent : [ "Constructors" ]
 			, Description : "Higher level method for binding elements which contain data-bind attribute."
 			, Examples : [
@@ -62,7 +62,7 @@ J.add("Docs.DataBind", {
 				, [ false, "db.update( string path )" ]
 			]
 			, Tags : [ "data binding" ]
-			, Source : [ "https://github.com/jdog/dataBind" ]
+			, Source : [ "//github.com/jdog/dataBind" ]
 			, Parent : [ "Constructors" ]
 			, Description : "Update all bound elements, or specific by data path."
 			, Examples : [
@@ -79,7 +79,7 @@ J.add("Docs.DataBind", {
 				, [ false, "db.findNodes( HTMLElement element )" ]
 			]
 			, Tags : [ "data binding" ]
-			, Source : [ "https://github.com/jdog/dataBind" ]
+			, Source : [ "//github.com/jdog/dataBind" ]
 			, Parent : [ "Constructors" ]
 			, Description : "Use this code to pull out contentNodes from handlebar {{ }} text"
 			+ " each handlebar will be inserted into a <var> tag with the data-bind property set"
@@ -99,7 +99,7 @@ J.add("Docs.DataBind", {
 				[ false, "db.bind( HTMLElement element, string path, object options )" ]
 			]
 			, Tags : [ "data binding" ]
-			, Source : [ "https://github.com/jdog/dataBind" ]
+			, Source : [ "//github.com/jdog/dataBind" ]
 			, Parent : [ "Constructors" ]
 			, Description : [
 				"Low level method for directly binding elements with data within the"
@@ -117,7 +117,7 @@ J.add("Docs.DataBind", {
 				[ false, "db.get( string path, any defaultValue )" ]
 			]
 			, Tags : [ "data binding" ]
-			, Source : [ "https://github.com/jdog/dataBind" ]
+			, Source : [ "//github.com/jdog/dataBind" ]
 			, Parent : [ "Constructors" ]
 			, Description : "Get the value of the path within the data object."
 			, Examples : [
@@ -133,7 +133,7 @@ J.add("Docs.DataBind", {
 				, [ false, "db.set( string path, any newValue, bool noUpdate )" ]
 			]
 			, Tags : [ "data binding" ]
-			, Source : [ "https://github.com/jdog/dataBind" ]
+			, Source : [ "//github.com/jdog/dataBind" ]
 			, Parent : [ "Constructors" ]
 			, Description : "Set the value of the path inside the data object. Pass a true as the third parameter to prevent all associated elements from being updated."
 			, Examples : [
@@ -150,7 +150,7 @@ J.add("Docs.DataBind", {
 				, [ false, "db.getAll( array pathArray, object | array thing, string type )" ]
 			]
 			, Tags : [ "data binding" ]
-			, Source : [ "https://github.com/jdog/dataBind" ]
+			, Source : [ "//github.com/jdog/dataBind" ]
 			, Parent : [ "Constructors" ]
 			, Description : "Internal method exposed in case it's useful. It gets all of the values or object references from the array of paths and stuffs them into the provided 'thing' or into an object by default."
 			, Examples : [
@@ -164,7 +164,7 @@ J.add("Docs.DataBind", {
 				[ false, "db.on( string path, function function )" ]
 			]
 			, Tags : [ "data binding" ]
-			, Source : [ "https://github.com/jdog/dataBind" ]
+			, Source : [ "//github.com/jdog/dataBind" ]
 			, Parent : [ "Constructors" ]
 			, Description : "Adds function to array of functions that get called when the path is triggered. There are two types, those triggered through update() and those triggered through update('path'). No arguments are passed from these."
 			, Examples : [ 
@@ -179,7 +179,7 @@ J.add("Docs.DataBind", {
 				[ false, "db.trigger( string path, any args+ )" ]
 			]
 			, Tags : [ "data binding" ]
-			, Source : [ "https://github.com/jdog/dataBind" ]
+			, Source : [ "//github.com/jdog/dataBind" ]
 			, Parent : [ "Constructors" ]
 			, Description : "Triggers the array of functions to fire with the given arguments passed in."
 			, Examples : [ ]
