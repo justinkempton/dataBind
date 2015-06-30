@@ -8,6 +8,8 @@ require("./j.docs.dataBind.js")
 for (var x in J.Docs) 
 	createSection(x)
 
+text = text.replace(/&lt;/g, "<")
+
 function createSection(path) {
 	var data = J.Docs[path]
 	data.Methods.forEach(build)

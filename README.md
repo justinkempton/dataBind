@@ -13,7 +13,7 @@ See the syntax for handlebar like notation.
 ####Examples:
 
 ```javascript
-&lt;div id="exampleArea"&#x3e;
+<div id="exampleArea"&#x3e;
 
 // Standard simple notation
 {{ path.to.data }}
@@ -25,24 +25,24 @@ See the syntax for handlebar like notation.
 {{ path.to.data, path.to.data | TemplateName }}
 //
 // for simple inputs
-&lt;input type="text" data-bind="path.to.data" /&#x3e;
+<input type="text" data-bind="path.to.data" /&#x3e;
 // 
 // for customizing
-&lt;div data-bind="path.to.data"&#x3e;&lt;/div&#x3e;
+<div data-bind="path.to.data"&#x3e;</div&#x3e;
 //
 // currently all repeating, if needed, 
 // should be handled through the template
 
-&lt;/div&#x3e;
+</div&#x3e;
 
-&lt;script&#x3e;
+<script&#x3e;
 
 // to bind html
 var parentElement = document.getElementById("exampleArea")
   , data = { path : { to : {  data : "hello world"  } } }
   , db = J.Constructors.DataBind( data ).autoBind( parentElement )
 
-&lt;/script&#x3e;
+</script&#x3e;
 
 ```
 
@@ -86,10 +86,10 @@ var data = {
   , fard : true
 }
 
-var html = "&lt;div&gt;"
-+ "&lt;span data-bind='helloWorld'&#x3e;&lt;/span&#x3e;"
-+ "&lt;span data-bind='fard'&#x3e;&lt;/span&#x3e;"
-+ "&lt;div&#x3e;"
+var html = "<div&gt;"
++ "<span data-bind='helloWorld'&#x3e;</span&#x3e;"
++ "<span data-bind='fard'&#x3e;</span&#x3e;"
++ "<div&#x3e;"
 
 var element = document.querySelector("div")
   , db = DataBind(data)
@@ -158,23 +158,23 @@ HTMLElement element, or string html
 ####Examples:
 
 ```javascript
-var html = "&lt;div&gt;"
+var html = "<div&gt;"
 + "{{helloWorld}}"
 + "{{fard}}"
-+ "&lt;div&#x3e;"
++ "<div&#x3e;"
 
 var db = DataBind(data)
 db.findNodes( html )
-// returns "&ltdiv&#x3e;&ltvar data-bind='helloWorld'&#x3e;&lt;/var&#x3e;&ltvar data-bind='fard'&#x3e;&lt;/var&#x3e;&lt;/div&#x3e;"
+// returns "&ltdiv&#x3e;&ltvar data-bind='helloWorld'&#x3e;</var&#x3e;&ltvar data-bind='fard'&#x3e;</var&#x3e;</div&#x3e;"
 
-var html = "&lt;div&gt;"
+var html = "<div&gt;"
 + "{{helloWorld,fard}}"
 + "{{fard|BoolInput}}"
-+ "&lt;div&#x3e;"
++ "<div&#x3e;"
 
 var db = DataBind(data)
 db.findNodes( html )
-// returns "&ltdiv&#x3e;&ltvar data-bind='helloWorld' data-source='helloWorld,fard'&#x3e;&lt;/var&#x3e;&ltvar data-bind='fard' data-template='BoolInput'&#x3e;&lt;/var&#x3e;&lt;/div&#x3e;"
+// returns "&ltdiv&#x3e;&ltvar data-bind='helloWorld' data-source='helloWorld,fard'&#x3e;</var&#x3e;&ltvar data-bind='fard' data-template='BoolInput'&#x3e;</var&#x3e;</div&#x3e;"
 
 ```
 
