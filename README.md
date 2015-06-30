@@ -13,7 +13,7 @@ See the syntax for handlebar like notation.
 ####Examples:
 
 ```javascript
-<div id="exampleArea"&#x3e;
+<div id="exampleArea">
 
 // Standard simple notation
 {{ path.to.data }}
@@ -25,24 +25,24 @@ See the syntax for handlebar like notation.
 {{ path.to.data, path.to.data | TemplateName }}
 //
 // for simple inputs
-<input type="text" data-bind="path.to.data" /&#x3e;
+<input type="text" data-bind="path.to.data" />
 // 
 // for customizing
-<div data-bind="path.to.data"&#x3e;</div&#x3e;
+<div data-bind="path.to.data"></div>
 //
 // currently all repeating, if needed, 
 // should be handled through the template
 
-</div&#x3e;
+</div>
 
-<script&#x3e;
+<script>
 
 // to bind html
 var parentElement = document.getElementById("exampleArea")
   , data = { path : { to : {  data : "hello world"  } } }
   , db = J.Constructors.DataBind( data ).autoBind( parentElement )
 
-</script&#x3e;
+</script>
 
 ```
 
@@ -87,9 +87,9 @@ var data = {
 }
 
 var html = "<div&gt;"
-+ "<span data-bind='helloWorld'&#x3e;</span&#x3e;"
-+ "<span data-bind='fard'&#x3e;</span&#x3e;"
-+ "<div&#x3e;"
++ "<span data-bind='helloWorld'></span>"
++ "<span data-bind='fard'></span>"
++ "<div>"
 
 var element = document.querySelector("div")
   , db = DataBind(data)
@@ -161,20 +161,20 @@ HTMLElement element, or string html
 var html = "<div&gt;"
 + "{{helloWorld}}"
 + "{{fard}}"
-+ "<div&#x3e;"
++ "<div>"
 
 var db = DataBind(data)
 db.findNodes( html )
-// returns "&ltdiv&#x3e;&ltvar data-bind='helloWorld'&#x3e;</var&#x3e;&ltvar data-bind='fard'&#x3e;</var&#x3e;</div&#x3e;"
+// returns "&ltdiv>&ltvar data-bind='helloWorld'></var>&ltvar data-bind='fard'></var></div>"
 
 var html = "<div&gt;"
 + "{{helloWorld,fard}}"
 + "{{fard|BoolInput}}"
-+ "<div&#x3e;"
++ "<div>"
 
 var db = DataBind(data)
 db.findNodes( html )
-// returns "&ltdiv&#x3e;&ltvar data-bind='helloWorld' data-source='helloWorld,fard'&#x3e;</var&#x3e;&ltvar data-bind='fard' data-template='BoolInput'&#x3e;</var&#x3e;</div&#x3e;"
+// returns "&ltdiv>&ltvar data-bind='helloWorld' data-source='helloWorld,fard'></var>&ltvar data-bind='fard' data-template='BoolInput'></var></div>"
 
 ```
 

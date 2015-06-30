@@ -9,6 +9,7 @@ for (var x in J.Docs)
 	createSection(x)
 
 text = text.replace(/&lt;/g, "<")
+text = text.replace(/&#x3e;/g, ">")
 
 function createSection(path) {
 	var data = J.Docs[path]
