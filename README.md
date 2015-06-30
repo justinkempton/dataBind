@@ -1,4 +1,51 @@
 
+#About DataBind
+
+The following code was created over a long weekend as a proof of concept. I wanted to prove to myself that the simple idea of associating data to DOM elements would make sense written out in code form.
+DOM elements get bound to 'data path'. Paths can be explicitly updated which triggers the associated elements to update.  Finally, DOM changes only occur when there is a difference in value.
+That was the general idea and after a few hours I had a working prototype. Some complexity came when I moved passed simple elements and on to a select input. 
+Select inputs really are tied to two different points of data. The array of items, and the selected item.
+This presented an interesting challenge which gave me a better understanding of why different templating engines use moustache syntax and how they tackle repeatable items.  So I settled on allowing multiple data point associations. For a select input to function there must be an array of items, and the selected item passed in. When either value changes the  associated elements change as well.
+Conceivably there is no end to the number of associations for generating controls. But for  simple elements like divs, and form inputs, all that is needed is one data point.
+See the syntax for handlebar like notation.
+
+
+####Examples:
+
+```javascript
+&lt;div id="exampleArea"&#x3e;
+
+// Standard simple notation
+{{ path.to.data }}
+//
+// for custom templates
+{{ data | TemplateName }}
+// 
+// For multi data points
+{{ path.to.data, path.to.data | TemplateName }}
+//
+// for simple inputs
+&lt;input type="text" data-bind="path.to.data" /&#x3e;
+// 
+// for customizing
+&lt;div data-bind="path.to.data"&#x3e;&lt;/div&#x3e;
+//
+// currently all repeating, if needed, 
+// should be handled through the template
+
+&lt;/div&#x3e;
+
+&lt;script&#x3e;
+
+// to bind html
+var parentElement = document.getElementById("exampleArea")
+  , data = { path : { to : {  data : "hello world"  } } }
+  , db = J.Constructors.DataBind( data ).autoBind( parentElement )
+
+&lt;/script&#x3e;
+
+```
+
 #DataBind
 
 
@@ -7,7 +54,7 @@
 var db = DataBind( object data )
 ```
 Base constructor for instantiating a new DataBind object. This library was written as a proof of concept for attaching data to DOM elements. It leverages the jDog exist library for resolving object property chains.
-There are two examples. 1) is a test of speed for updating using this code: <a href='http://jdog.github.io/dataBind/demo/index.html'>Demo1</a>. and 2) for common dataBinding with example of how to build custom templates: <a href='http://jdog.github.io/dataBind/demo/index2.html'>Demo2</a>.
+There are two examples. 1) is a test of speed for updating using this code: <a href='//jdog.github.io/dataBind/demo/index.html'>Demo1</a>. and 2) for common dataBinding with example of how to build custom templates: <a href='//jdog.github.io/dataBind/demo/index2.html'>Demo2</a>.
 
 
 ####Returns:
@@ -25,7 +72,7 @@ new DataBind object
 ```javascript
 db.autoBind( HTMLElement element )
 ```
-Higher level method for binding elements which contain data-bind attribute.
+Higher level method for binding either sub elements which contain data-bind attribute or  special 'handlebar' tags that exist inside the element.
 
 
 ####Returns:
@@ -102,11 +149,11 @@ $.ajax({
 db.findNodes( string html )
 db.findNodes( HTMLElement element )
 ```
-Use this code to pull out contenetNodes from handlebar {{ }} texteach handlebar will be inserted into a <var> tag with the data-bind property setthis only transforms text into text, it does not deal with DOM yetthat will be handled by another library
+Use this code to pull out contentNodes from handlebar {{ }} text each handlebar will be inserted into a <var> tag with the data-bind property set this only transforms text into text, it does not deal with DOM yet that will be handled by another library
 
 
 ####Returns:
-DataBind db
+HTMLElement element, or string html
 
 ####Examples:
 
