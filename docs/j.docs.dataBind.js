@@ -5,23 +5,12 @@ J.add("Docs.DataBind", {
 		{
 			Name : "About DataBind"
 			, Description : [
-				"The following code was created over a long weekend as a proof of concept. I wanted to prove"
-				+ " to myself that the simple idea of associating data to DOM elements would make sense written"
-				+ " out in code form."
-				, "DOM elements get bound to 'data path'. Paths can be explicitly updated"
-				+ " which triggers the associated elements to update. "
+				"Simple and efficient two way data-binding library for front end javascript."
+				, "DOM elements get bound to properties of the dataBind object. When the data "
+				+ " is updated, either by using set or calling update "
+				+ " the associated DOM elements bound to that path get updated."
 				+ " Finally, DOM changes only occur when there is a difference in value."
-				, "That was the general idea and after a few hours I had a working prototype."
-				+ " Some complexity came when I moved passed simple elements and on to a select input. "
-				, "Select inputs really are tied to two different points of data. The array of items, and the selected item."
-				, "This presented an interesting challenge which gave me a better understanding of why different"
-				+ " templating engines use moustache syntax and how they tackle repeatable items. "
-				+ " So I settled on allowing multiple data point associations. For a select input to function"
-				+ " there must be an array of items, and the selected item passed in. When either value changes the "
-				+ " associated elements change as well."
-				, "Conceivably there is no end to the number of associations for generating controls. But for "
-				+ " simple elements like divs, and form inputs, all that is needed is one data point."
-				, "See the syntax for handlebar like notation."
+				, " This library relies on jDog library, but can be easily modified to be standalone."
 			]
 			, Examples : [
 				"&lt;div id=\"exampleArea\"&#x3e;\n\n// Standard simple notation\n{{ path.to.data }}\n//\n// for custom templates\n{{ data | TemplateName }}\n// \n// For multi data points\n{{ path.to.data, path.to.data | TemplateName }}\n//\n// for simple inputs\n&lt;input type=\"text\" data-bind=\"path.to.data\" /&#x3e;\n// \n// for customizing\n&lt;div data-bind=\"path.to.data\"&#x3e;&lt;/div&#x3e;\n//\n// currently all repeating, if needed, \n// should be handled through the template\n\n&lt;/div&#x3e;\n\n&lt;script&#x3e;\n\n// to bind html\nvar parentElement = document.getElementById(\"exampleArea\")\n  , data = { path : { to : {  data : \"hello world\"  } } }\n  , db = J.Constructors.DataBind( data ).autoBind( parentElement )\n\n&lt;/script&#x3e;"
