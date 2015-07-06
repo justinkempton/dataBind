@@ -86,7 +86,7 @@ var data = {
   , fard : true
 }
 
-var html = "<div&gt;"
+var html = "<div>"
 + "<span data-bind='helloWorld'></span>"
 + "<span data-bind='fard'></span>"
 + "<div>"
@@ -158,7 +158,7 @@ HTMLElement element, or string html
 ####Examples:
 
 ```javascript
-var html = "<div&gt;"
+var html = "<div>"
 + "{{helloWorld}}"
 + "{{fard}}"
 + "<div>"
@@ -167,7 +167,7 @@ var db = DataBind(data)
 db.findNodes( html )
 // returns "&ltdiv>&ltvar data-bind='helloWorld'></var>&ltvar data-bind='fard'></var></div>"
 
-var html = "<div&gt;"
+var html = "<div>"
 + "{{helloWorld,fard}}"
 + "{{fard|BoolInput}}"
 + "<div>"
